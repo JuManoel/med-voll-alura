@@ -1,4 +1,4 @@
-package med.voll.models;
+package med.voll.api.models;
 
 public enum Especialidad {
     ORTOPEDIA("ortopedia"),
@@ -14,7 +14,7 @@ public enum Especialidad {
 
     public Especialidad fromString(String type) {
         for (Especialidad especialidad : Especialidad.values()) {
-            if(especialidad.type.contains(type.toLowerCase())){
+            if (especialidad.type.contains(type.toLowerCase())) {
                 return especialidad;
             }
         }
