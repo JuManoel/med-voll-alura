@@ -37,6 +37,7 @@ public class Medico {
     private Especialidad especialidad;
     @Embedded
     private Direccion dirrecion;
+    private boolean activo;
 
     public Medico(DatosMedico datosMedico) {
         this.nombre = datosMedico.nombre();
@@ -45,6 +46,7 @@ public class Medico {
         this.telefono = datosMedico.telefono();
         this.especialidad = datosMedico.especialidad();
         this.dirrecion = new Direccion(datosMedico.dirrecion());
+        this.activo = true;
     }
 
     public void actualizarDatos(@Valid DatosActualizarMedicoDTO json) {
@@ -57,6 +59,14 @@ public class Medico {
         if(json.direccion()!= null) {
             this.dirrecion.actualizarDireccion(json.direccion());
         }
+    }
+
+    public void desactivar() {
+        this.activo = false;
+    }
+
+    public boolean getActivo(){
+        return this.activo;
     }
 
 }

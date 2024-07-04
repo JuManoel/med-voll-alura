@@ -25,7 +25,7 @@ public class MedicoService {
     }
 
     public Page<DatosMedicoDTO> listarMedicos(Pageable pageable) {
-        return repository.findAll(pageable)
+        return repository.findByActivoTrue(pageable)
                 .map(m -> new DatosMedicoDTO(m.getId(),m.getNombre(), m.getEspecialidad(), m.getDocumento(), m.getEmail()));
     }
 
@@ -37,5 +37,23 @@ public class MedicoService {
         Medico med = medico.get();
         med.actualizarDatos(json);
         
+    }
+
+    //delete de base de dados
+    //remove os dados da base de dados
+    // public void eliminarMedico(int id) {
+    //     Optional<Medico> medico = repository.findById(id);
+    //     if(!medico.isPresent()){
+    //         throw new RuntimeException("Medico no encontrado");
+    //     }
+    //     repository.delete(medico.get());
+    // }
+
+    public void eliminarMedico(int id) {
+        Optional<Medico> medico = repository.findById(id);
+        if(!medico.isPresent()){
+            throw new RuntimeException("Medico no encontrado");
+        }
+        medico.get().desactivar();
     }
 }

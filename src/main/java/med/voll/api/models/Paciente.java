@@ -7,11 +7,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import med.voll.api.DTO.DatosActualizarPacienteDTO;
 
 @Entity
 @Table(name = "pacientes")
@@ -31,6 +33,7 @@ public class Paciente {
     private String documento;
     @Embedded
     private Direccion direccion;
+    private boolean activo;
 
     public Paciente(DatosPaciente paciente) {
         this.nombre = paciente.nombre();
@@ -38,5 +41,21 @@ public class Paciente {
         this.telefono = paciente.telefono();
         this.documento = paciente.documentoIdentidad();
         this.direccion = new Direccion(paciente.direccion());
+    }
+
+    public void actualizarDatos(@Valid DatosActualizarPacienteDTO json) {
+        if(json.nombre() != null) {
+            this.nombre = json.nombre();
+        }
+        if(json.telefono() != null) {
+            this.telefono = json.telefono();
+        }
+        if(json.direccion()!= null) {
+            this.direccion.actualizarDireccion(json.direccion());
+        }
+    }
+
+    public void desactivar() {
+        this.activo = false;
     }
 }
