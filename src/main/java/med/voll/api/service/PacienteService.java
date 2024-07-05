@@ -19,9 +19,11 @@ public class PacienteService {
     @Autowired
     private PacienteRepository repository;
 
-    public void registrarPaciente(DatosPaciente paciente) {
+    public DatosPacienteDTO registrarPaciente(DatosPaciente paciente) {
         Paciente pac = new Paciente(paciente);
         repository.save(pac);
+        DatosPacienteDTO dto = new DatosPacienteDTO(pac.getId(),pac.getNombre(),pac.getEmail(),pac.getTelefono(),pac.getDocumento());
+        return dto;
     }
 
     public Page<DatosPacienteDTO> listarPacientes(Pageable pageable) {
@@ -29,14 +31,15 @@ public class PacienteService {
                 .map(p -> new DatosPacienteDTO(p.getId(),p.getNombre(), p.getEmail(), p.getTelefono(), p.getDocumento()));
     }
 
-    public void actualizarPaciente(@Valid DatosActualizarPacienteDTO json) {
+    public DatosPacienteDTO actualizarPaciente(@Valid DatosActualizarPacienteDTO json) {
         Optional<Paciente> paciente = repository.findById(json.id());
         if(!paciente.isPresent()){
             throw new RuntimeException("Paciente no encontrado");
         }
         Paciente pac = paciente.get();
         pac.actualizarDatos(json);
-        
+        DatosPacienteDTO pacienteDTO = new DatosPacienteDTO(pac.getId(), pac.getNombre(), pac.getEmail(), pac.getTelefono(), pac.getDocumento());
+        return pacienteDTO;
     }
 
     public void eliminarPaciente(int id) {
@@ -45,5 +48,14 @@ public class PacienteService {
             throw new RuntimeException("Paciente no encontrado");
         }
         paciente.get().desactivar();
+    }
+
+    public DatosPacienteDTO obtenerPaciente(int id) {
+        Optional<Paciente> paciente = repository.findById(id);
+        if(!paciente.isPresent()){
+            throw new RuntimeException("Paciente no encontrado");
+        }
+        DatosPacienteDTO pacienteDTO = new DatosPacienteDTO(paciente.get().getId(), paciente.get().getNombre(), paciente.get().getEmail(), paciente.get().getTelefono(), paciente.get().getDocumento());
+        return pacienteDTO;
     }
 }

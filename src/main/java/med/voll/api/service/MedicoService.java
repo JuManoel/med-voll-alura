@@ -19,9 +19,11 @@ public class MedicoService {
     @org.springframework.beans.factory.annotation.Autowired(required = true)
     private MedicoRepository repository;
 
-    public void registrarMedico(DatosMedico medico) {
+    public DatosMedicoDTO registrarMedico(DatosMedico medico) {
         Medico med = new Medico(medico);
         repository.save(med);
+        return new DatosMedicoDTO(med.getId(),med.getNombre(), med.getEspecialidad(), med.getDocumento(), med.getEmail());
+
     }
 
     public Page<DatosMedicoDTO> listarMedicos(Pageable pageable) {
@@ -29,13 +31,14 @@ public class MedicoService {
                 .map(m -> new DatosMedicoDTO(m.getId(),m.getNombre(), m.getEspecialidad(), m.getDocumento(), m.getEmail()));
     }
 
-    public void actualizarMedico(@Valid DatosActualizarMedicoDTO json) {
+    public DatosMedicoDTO actualizarMedico(@Valid DatosActualizarMedicoDTO json) {
         Optional<Medico> medico = repository.findById(json.id());
         if(!medico.isPresent()){
             throw new RuntimeException("Medico no encontrado");
         }
         Medico med = medico.get();
         med.actualizarDatos(json);
+        return new DatosMedicoDTO(med.getId(),med.getNombre(), med.getEspecialidad(), med.getDocumento(), med.getEmail());
         
     }
 
@@ -55,5 +58,13 @@ public class MedicoService {
             throw new RuntimeException("Medico no encontrado");
         }
         medico.get().desactivar();
+    }
+
+    public DatosMedicoDTO obtenerMedico(int id) {
+        Optional<Medico> medico = repository.findById(id);
+        if(!medico.isPresent()){
+            throw new RuntimeException("Medico not found");
+        }
+        return new DatosMedicoDTO(medico.get().getId(), medico.get().getNombre(), medico.get().getEspecialidad(), medico.get().getDocumento(), medico.get().getEmail());
     }
 }
