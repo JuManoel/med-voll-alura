@@ -19,9 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.DTO.DatosActualizarMedicoDTO;
-import med.voll.api.DTO.DatosMedicoDTO;
-import med.voll.api.models.DatosMedico;
+import med.voll.api.DTO.Medicos.DatosActualizarMedicoDTO;
+import med.voll.api.DTO.Medicos.DatosMedicoDTO;
+import med.voll.api.models.medicos.DatosMedico;
 import med.voll.api.service.MedicoService;
 
 @RestController

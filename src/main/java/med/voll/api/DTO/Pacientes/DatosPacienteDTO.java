@@ -1,4 +1,4 @@
-package med.voll.api.DTO;
+package med.voll.api.DTO.Pacientes;
 
 public record DatosPacienteDTO(
         int id,

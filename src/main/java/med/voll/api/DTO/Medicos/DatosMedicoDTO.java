@@ -1,6 +1,6 @@
-package med.voll.api.DTO;
+package med.voll.api.DTO.Medicos;
 
-import med.voll.api.models.Especialidad;
+import med.voll.api.models.medicos.Especialidad;
 
 public record DatosMedicoDTO(
         int id,

@@ -1,4 +1,4 @@
-package med.voll.api.DTO;
+package med.voll.api.DTO.Medicos;
 
 import jakarta.validation.constraints.NotNull;
 import med.voll.api.models.DatosDireccion;

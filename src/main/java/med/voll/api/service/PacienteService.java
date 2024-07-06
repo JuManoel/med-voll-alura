@@ -8,10 +8,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
-import med.voll.api.DTO.DatosActualizarPacienteDTO;
-import med.voll.api.DTO.DatosPacienteDTO;
-import med.voll.api.models.DatosPaciente;
-import med.voll.api.models.Paciente;
+import med.voll.api.DTO.Pacientes.DatosActualizarPacienteDTO;
+import med.voll.api.DTO.Pacientes.DatosPacienteDTO;
+import med.voll.api.models.pacientes.DatosPaciente;
+import med.voll.api.models.pacientes.Paciente;
 import med.voll.api.repository.PacienteRepository;
 
 @Service

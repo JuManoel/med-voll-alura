@@ -1,4 +1,4 @@
-package med.voll.api.DTO;
+package med.voll.api.DTO.Pacientes;
 
 import med.voll.api.models.DatosDireccion;
 

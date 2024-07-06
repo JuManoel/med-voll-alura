@@ -1,9 +1,10 @@
-package med.voll.api.models;
+package med.voll.api.models.pacientes;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import med.voll.api.models.DatosDireccion;
 
 public record DatosPaciente(
                 @NotBlank @NotNull String nombre,

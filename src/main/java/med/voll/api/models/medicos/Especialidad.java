@@ -1,4 +1,4 @@
-package med.voll.api.models;
+package med.voll.api.models.medicos;
 
 public enum Especialidad {
     ORTOPEDIA("ortopedia"),

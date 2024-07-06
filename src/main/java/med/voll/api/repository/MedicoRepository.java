@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import med.voll.api.models.Medico;
+import med.voll.api.models.medicos.Medico;
 
 public interface MedicoRepository extends JpaRepository<Medico, Integer> {
     Page<Medico> findByActivoTrue(Pageable page);
