@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import med.voll.api.models.DatosDireccion;
+import med.voll.api.models.direccion.DatosDireccion;
 
 public record DatosMedico(
         @NotNull(message = "todo medico tiene un nombre") @NotBlank(message = "Falta escribir el nombre del medico") String nombre,

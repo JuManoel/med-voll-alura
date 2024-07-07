@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +28,16 @@ public class AutenticacionController {
 
     @PostMapping
     public ResponseEntity<DatosToken> autenticarUsuario(@RequestBody @Valid DatosUsuario datosAutenticacionUsuario) {
+        System.out.println(datosAutenticacionUsuario);
         Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.login(),
                 datosAutenticacionUsuario.password());
         var usuarioAutenticado = manager.authenticate(authToken);
         var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
         return ResponseEntity.ok(new DatosToken(JWTtoken));
+    }
+
+    @GetMapping()
+    public void test(){
+        System.out.println("???");
     }
 }

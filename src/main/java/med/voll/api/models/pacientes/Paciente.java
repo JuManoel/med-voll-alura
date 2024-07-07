@@ -14,7 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import med.voll.api.DTO.Pacientes.DatosActualizarPacienteDTO;
-import med.voll.api.models.Direccion;
+import med.voll.api.models.direccion.Direccion;
 
 @Entity
 @Table(name = "pacientes")
@@ -42,6 +42,7 @@ public class Paciente {
         this.telefono = paciente.telefono();
         this.documento = paciente.documentoIdentidad();
         this.direccion = new Direccion(paciente.direccion());
+        this.activo = true;
     }
 
     public void actualizarDatos(@Valid DatosActualizarPacienteDTO json) {
