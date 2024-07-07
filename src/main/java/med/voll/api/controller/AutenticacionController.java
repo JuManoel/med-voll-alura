@@ -5,18 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.token.TokenService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import med.voll.api.models.DatosTolken;
+import med.voll.api.models.DatosToken;
 import med.voll.api.models.usuarios.DatosUsuario;
 import med.voll.api.models.usuarios.Usuario;
-import med.voll.api.service.AutenticacionService;
-import med.voll.api.service.TokienService;
+import med.voll.api.service.TokenService;
 
 @RestController
 @RequestMapping("/login")
@@ -25,18 +23,14 @@ public class AutenticacionController {
     private AuthenticationManager manager;
 
     @Autowired
-    private AutenticacionService service;
+    private TokenService tokenService;
 
-    @Autowired
-    private TokienService tokienService;
-
-    @PostMapping()
-    public ResponseEntity<DatosTolken> autenticarUsuario(@RequestBody @Valid DatosUsuario usuario){
-        // Implementar la lógica de autenticación
-        // Retornar un token de acceso si el usuario es válido
-        Authentication authentication = new UsernamePasswordAuthenticationToken(usuario.login(), usuario.password());
-        var usuarioAutenticado = manager.authenticate(authentication);
-        var tolkin = tokienService.generarTokien((Usuario) usuarioAutenticado.getPrincipal());
-        return ResponseEntity.ok(new DatosTolken(tolkin));
+    @PostMapping
+    public ResponseEntity<DatosToken> autenticarUsuario(@RequestBody @Valid DatosUsuario datosAutenticacionUsuario) {
+        Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.login(),
+                datosAutenticacionUsuario.password());
+        var usuarioAutenticado = manager.authenticate(authToken);
+        var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
+        return ResponseEntity.ok(new DatosToken(JWTtoken));
     }
 }
