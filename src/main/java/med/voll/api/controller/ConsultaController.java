@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.models.consulta.DatosConsulta;
 import med.voll.api.service.ConsultaService;
@@ -16,6 +17,7 @@ import med.voll.api.models.consulta.DatosDetalleConsulta;
 @RestController
 @ResponseBody
 @RequestMapping("/consulta")
+@SecurityRequirement(name = "bearer-key")
 public class ConsultaController {
     @Autowired
     private ConsultaService service;
