@@ -20,8 +20,8 @@ public class ConsultaController {
     @Autowired
     private ConsultaService service;
     @PostMapping()
-    public ResponseEntity<DatosDetalleConsulta> agendar(@RequestBody @Valid DatosConsulta consulta){
-        service.generarConsulta(consulta);
-        return ResponseEntity.ok(new DatosDetalleConsulta(0,0,null));
+    public ResponseEntity<DatosConsulta> agendar(@RequestBody @Valid DatosConsulta consulta){
+        var response = service.generarConsulta(consulta);
+        return ResponseEntity.ok(response);
     }
 }

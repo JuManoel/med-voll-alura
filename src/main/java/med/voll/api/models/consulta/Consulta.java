@@ -2,7 +2,6 @@ package med.voll.api.models.consulta;
 
 import java.time.LocalDateTime;
 
-import org.springframework.cglib.core.Local;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

@@ -19,14 +19,25 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer> {
     Optional<Medico> findByActivoTrueAndId(int id);
 
     @Query("""
-     SELECT m FROM Medico m 
-     WHERE m.activo = true AND 
-     m.especialidad = :especialidad AND
-     m.id NOT IN (
-        SELECT c.medico_id FROM Cosulta c WHERE c.fecha = :fecha
-     )
-     ORDER BY RANDOM LIMIT 1  
-    """)
+            SELECT m FROM Medico m
+            WHERE m.activo= TRUE 
+            AND
+            m.especialidad=:especialidad 
+            AND
+            m.id NOT IN(  
+                SELECT c.medico.id FROM Consulta c
+                WHERE
+                c.fecha=:fecha
+            )
+            ORDER BY RANDOM()
+            LIMIT 1
+            """)
     Optional<Medico> selecionarMedicoEspecialistaEnFecha(Especialidad especialidad,
             @NotNull @Future LocalDateTime fecha);
+
+    @Query("""
+            SELECT m.activo FROM Medico m WHERE m.id = :id
+            """)
+    Boolean findActivoById(int id);
+
 }
